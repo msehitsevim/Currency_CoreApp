@@ -1,0 +1,41 @@
+dbo.oldData
+USE [Currency]
+GO
+/****** Object:  StoredProcedure [dbo].[oldData]    Script Date: 24.10.2018 16:20:45 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[oldData] 
+@pCode varchar(5),
+@pBuying float,
+@pSelling float,
+@pDtime datetime
+AS
+BEGIN
+	SET NOCOUNT ON;
+	insert into d_kuru(DT_Buying,DT_Selling,DT_DateTime,DT_ID) values (@pBuying,@pSelling,@pDtime,(select DT_ID from Doviz_Tipi where dt_Code = @pCode))
+	
+END
+
+dbo.spDoviz_Tipi
+
+USE [Currency]
+GO
+/****** Object:  StoredProcedure [dbo].[spDoviz_Tipi]    Script Date: 24.10.2018 16:21:33 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[spDoviz_Tipi] 
+@pCode varchar(10),
+@pName varchar(50)
+
+
+AS
+BEGIN
+	SET NOCOUNT ON;
+	
+	insert into Doviz_Tipi(dt_Code,dt_Name) values(@pCode,@pName)
+	
+END
